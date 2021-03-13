@@ -1,0 +1,35 @@
+﻿@model JobListAllViewModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model.Rapors.Count > 0)
+{
+    <a asp-action="GetExcel" asp-route-id="@Model.Id" target="_blank" class="btn btn-success mt-2 mr-2"><i class="fas fa-table mr-2"></i>Excelde Çıktı Al</a>
+    <a asp-action="GetPdf" asp-route-id="@Model.Id" target="_blank" class="btn btn-success mt-2"><i class="fas fa-file-pdf mr-2"></i>Pdf Çıktı Al</a>
+
+    <table class="table table-hover table-sm mt-2 text-center table-bordered">
+        <tr>
+            <th colspan="3">@Model.AppUser.Name @Model.AppUser.Surname personelinizin  @Model.Name görevine yazmış olduğu raporlar</th>
+        </tr>
+        <tr>
+            <th>Tanım</th>
+            <th>Detay</th>
+        </tr>
+        @foreach (var rapor in Model.Rapors)
+        {
+            <tr>
+                <td>@rapor.Definition</td>
+                <td>@rapor.Detail</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="border border-dark mt-2 text-center">
+        @Model.AppUser.Name @Model.AppUser.Surname personeliniz şuan da @Model.Name görevi üzerinden çalışmaktadır.Henüz bir rapor yazmamış.
+    </div>
+}
+
